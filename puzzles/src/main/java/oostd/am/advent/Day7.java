@@ -15,8 +15,6 @@ public class Day7 {
     public static void main(String[] args) {
         List<String> input = new FileReader().readInput("day7-input");
 
-        // days and count of fish
-
         var positions = Arrays.stream(input.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
         var stats = positions.stream().mapToInt(i -> i).summaryStatistics();
 

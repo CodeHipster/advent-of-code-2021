@@ -13,22 +13,21 @@ public class Day7Plus {
     static HashMap<Integer, Integer> fuelCache = new HashMap<>();
 
     public static void main(String[] args) {
+        long start = System.nanoTime();
         List<String> input = new FileReader().readInput("day7-input");
-
-        // days and count of fish
 
         var positions = Arrays.stream(input.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
         var stats = positions.stream().mapToInt(i -> i).summaryStatistics();
 
         //<position, totalDistance>
         Map<Integer, Long> distanceMap = new HashMap<>();
-
         for(int i = stats.getMin(); i < stats.getMax(); i++){
             distanceMap.put(i, fuelConsumption(i, positions));
         }
 
         long answer = distanceMap.values().stream().mapToLong(l -> l).min().getAsLong();
         int debug = 0;
+        System.out.println((System.nanoTime() - start)/1000000);
     }
 
     private static long fuelConsumption(int position, List<Integer> positions){
