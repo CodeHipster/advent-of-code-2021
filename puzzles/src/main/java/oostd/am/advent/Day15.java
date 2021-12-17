@@ -1,7 +1,5 @@
 package oostd.am.advent;
 
-import com.google.common.collect.SortedMultiset;
-import com.google.common.collect.TreeMultiset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
