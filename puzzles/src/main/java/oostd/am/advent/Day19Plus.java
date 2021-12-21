@@ -1,7 +1,6 @@
 package oostd.am.advent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import oostd.am.advent.tools.FileReader;
 
-public class Day19 {
+public class Day19Plus {
 
     static class Translation {
         int x, y, z;
@@ -75,6 +74,7 @@ public class Day19 {
         int id;
         List<Beacon> beacons;
         Rotations r = new Rotations();
+        Translation translation;
 
         public Scanner(int id, List<Beacon> beacons) {
             this.id = id;
@@ -111,6 +111,7 @@ public class Day19 {
                     }
                     Translation align = aligns(rotateCopy);
                     if (align != null) {
+                        other.translation = align;
                         other.beacons = rotateCopy.stream().map(b -> b.translate(align)).collect(Collectors.toList());
                         return other;
                     }
@@ -207,6 +208,7 @@ public class Day19 {
         List<Scanner> scanners = new ArrayList<>();
 
         Map(Scanner initial) {
+            initial.translation = new Translation(0,0,0);
             scanners.add(initial);
             completeMap.addAll(initial.beacons);
         }
@@ -257,7 +259,24 @@ public class Day19 {
             }
         }
 
+        Iterator<Scanner> itr1 = map.scanners.iterator();
+        long distance = 0;
+        while (itr1.hasNext()) {
+            Scanner left = itr1.next();
+            Iterator<Scanner> itr2 = map.scanners.iterator();
+            while (itr2.hasNext()) {
+                Scanner right = itr2.next();
+                //TODO: add translation to scanner.
+                int man = Math.abs(left.translation.x - right.translation.x)
+                        + Math.abs(left.translation.y - right.translation.y)
+                        + Math.abs(left.translation.z - right.translation.z);
+                if (man > distance) {
+                    distance = man;
+                }
+            }
+        }
 
+        //TODO: output incorrect, 127 instead of 79
         int debug = 0;
     }
 
