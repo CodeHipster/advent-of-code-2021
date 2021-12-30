@@ -70,6 +70,7 @@ public class Day22Plus {
     }
 
     public static void main(String[] args) {
+        long start = System.currentTimeMillis();
         List<String> input = new FileReader().readInput("day22-input");
         List<Cuboid> cuboids = input.stream().map(Cuboid::fromString).collect(Collectors.toList());
 
@@ -87,7 +88,9 @@ public class Day22Plus {
 
         long on = reactor.intersections.stream().filter(c -> c.state).mapToLong(Cuboid::volume).sum();
 
+        System.out.println((System.currentTimeMillis() - start));
         System.out.println(on);
+
 
         int debug = 0;
     }
